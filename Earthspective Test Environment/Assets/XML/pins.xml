@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<PinCollection>
+  <Pins>
+    <Pin id="1" year="2016" x="34.80258" y="-92.431326" title="Pin1" desc="This is the first pin"/>
+    <Pin id="2" year="2016" x="44.399153" y="-120.447808" title="Pin 2" desc="This is the second pin"/>
+  </Pins>
+</PinCollection>
