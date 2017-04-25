@@ -6,12 +6,9 @@ using UnityEngine.UI;
 
 public class TimeLine : MonoBehaviour {
 
+    private Date currentDate;
     public Slider timeLine;
     public InputField inField;
-
-    private Date currentDate;
-    private int yearValue;
-
 
     //Update the current date from user input. 
     public void ChangeDate(int step)
@@ -19,19 +16,44 @@ public class TimeLine : MonoBehaviour {
         currentDate.SetDate(1,1,currentDate.GetYear()+step);
     }
 
-    public bool CompareDate(Date checkDate, int maxDistance)
+    //Returns the distance in years between checkDate and the currentDate. 
+    public float CompareDate(Date checkDate)
     {
+         return Mathf.Abs(checkDate.GetYear() - currentDate.GetYear());
+    }
 
-         float distance = Mathf.Abs(checkDate.GetYear() - currentDate.GetYear());
+    //Updates the date when the timeline slider changes
+    public void UpdatefromTimeline()
+    {
+        currentDate.SetDate(currentDate.GetDay(), currentDate.GetMonth(), (int)timeLine.value);
+    }
 
-        if ((maxDistance - distance) / maxDistance == 1)
+    //Updates the timeline when the date was changed by the input field
+    public void UpdateTimeLine()
+    {
+        timeLine.value = Convert.ToInt32(inField.text);
+    }
+    
+    //Updates the value of the InputField. 
+    public void UpdateInField()
+    {
+        string boundary = "";
+        if (currentDate.GetEra() == true)
         {
-            return true;
+            boundary = " AD";
         }
         else
         {
-            return false;
+            boundary = " BC";
         }
 
+        inField.text = "" + Math.Abs(currentDate.GetYear()) + boundary;
     }
+
+    //Returns the current date. 
+    public Date GetCurrentDate()
+    {
+        return currentDate;
+    }
+    
 }

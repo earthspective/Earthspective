@@ -10,7 +10,7 @@ public class Date : MonoBehaviour {
     private int year;
     private bool era;
 
-
+    //Update the class variables
     public bool SetDate(int setDay, int setMonth, int setYear)
     {
         if (setDay > 0)
@@ -122,8 +122,13 @@ public class Date : MonoBehaviour {
 
             #endregion
 
-            if(setYear != 0 && setYear >= -10000 && setYear < 2100)
+            if(setYear >= -10000 && setYear < 2100)
             {
+                if (setYear == 0)
+                {
+                    setYear = 1;
+                }
+
                 year = setYear;
             }
             else { return false; }
@@ -143,6 +148,7 @@ public class Date : MonoBehaviour {
         else { return false; }
     }
 
+    //Checks to see if the year is a leap year to control the number of days in february.
     public bool isLeapYear(int checkYear)
     {
         if (checkYear % 4 == 0 && checkYear % 100 == 0 && checkYear % 400 == 0)
@@ -155,6 +161,7 @@ public class Date : MonoBehaviour {
         }
     }
 
+    //Returns a string representation of the date. 
     public string GetDate()
     {
         string date = "";
@@ -209,6 +216,7 @@ public class Date : MonoBehaviour {
         return date;
     }
 
+    //Return each class variable. 
     public int GetDay() { return day; }
 
     public int GetMonth() { return month; }
