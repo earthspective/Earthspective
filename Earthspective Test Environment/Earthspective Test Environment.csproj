@@ -76,17 +76,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\DuplicateGameObject.cs" />
-    <Compile Include="Assets\Scripts\Design Doc Scripts\Control Panel.cs" />
+    <Compile Include="Assets\Scripts\Design Doc Scripts\ControlPanel.cs" />
     <Compile Include="Assets\Scripts\Design Doc Scripts\Date.cs" />
     <Compile Include="Assets\Scripts\Design Doc Scripts\EventPin.cs" />
-    <Compile Include="Assets\Scripts\Design Doc Scripts\Information Panel.cs" />
-    <Compile Include="Assets\Scripts\Design Doc Scripts\Time Line.cs" />
+    <Compile Include="Assets\Scripts\Design Doc Scripts\InformationPanel.cs" />
+    <Compile Include="Assets\Scripts\Design Doc Scripts\TimeLine.cs" />
     <Compile Include="Assets\Scripts\DragSpin.cs" />
-    <Compile Include="Assets\Scripts\InfoPanelManager.cs" />
     <Compile Include="Assets\Scripts\Pin.cs" />
     <Compile Include="Assets\Scripts\PinCollection.cs" />
     <Compile Include="Assets\Scripts\PinGenerator.cs" />
-    <Compile Include="Assets\Scripts\PinManager.cs" />
     <Compile Include="Assets\Scripts\SpinFree.cs" />
     <Compile Include="Assets\Scripts\TimelineCounter.cs" />
     <Compile Include="Assets\Scripts\look.cs" />

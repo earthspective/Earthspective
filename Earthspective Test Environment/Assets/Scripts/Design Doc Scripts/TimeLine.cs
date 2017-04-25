@@ -4,28 +4,40 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeLine : MonoBehaviour {
+public class TimeLine : MonoBehaviour
+{
 
-    private Date currentDate;
+    public Date currentDate;
     public Slider timeLine;
     public InputField inField;
+
+
+    public void Awake()
+    {
+        currentDate.SetDate(1, 1, 1);
+        UpdatefromTimeline();
+        UpdateInField();
+    }
+
 
     //Update the current date from user input. 
     public void ChangeDate(int step)
     {
-        currentDate.SetDate(1,1,currentDate.GetYear()+step);
+        currentDate.SetDate(1, 1, currentDate.GetYear() + step);
+        UpdateInField();
     }
 
     //Returns the distance in years between checkDate and the currentDate. 
     public float CompareDate(Date checkDate)
     {
-         return Mathf.Abs(checkDate.GetYear() - currentDate.GetYear());
+        return Mathf.Abs(checkDate.GetYear() - currentDate.GetYear());
     }
 
     //Updates the date when the timeline slider changes
     public void UpdatefromTimeline()
     {
         currentDate.SetDate(currentDate.GetDay(), currentDate.GetMonth(), (int)timeLine.value);
+        UpdateInField();
     }
 
     //Updates the timeline when the date was changed by the input field
@@ -33,7 +45,7 @@ public class TimeLine : MonoBehaviour {
     {
         timeLine.value = Convert.ToInt32(inField.text);
     }
-    
+
     //Updates the value of the InputField. 
     public void UpdateInField()
     {
@@ -55,5 +67,5 @@ public class TimeLine : MonoBehaviour {
     {
         return currentDate;
     }
-    
+
 }

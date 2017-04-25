@@ -5,10 +5,11 @@ using System;
 
 public class Date : MonoBehaviour {
 
-    private int day;
-    private int month;
-    private int year;
-    private bool era;
+    public int day;
+    public int month;
+    public int year;
+    public bool era;
+
 
     //Update the class variables
     public bool SetDate(int setDay, int setMonth, int setYear)
@@ -124,7 +125,12 @@ public class Date : MonoBehaviour {
 
             if(setYear >= -10000 && setYear < 2100)
             {
-                if (setYear == 0)
+                if (setYear == 0 && era == true)
+                {
+                    setYear = -1;
+                }
+
+                if (setYear == 0 && era == false)
                 {
                     setYear = 1;
                 }
@@ -133,12 +139,12 @@ public class Date : MonoBehaviour {
             }
             else { return false; }
 
-            if (setYear > 0)
+            if (year > 0)
             {
                 era = true;
             }
 
-            if(setYear < 0)
+            if(year < 0)
             {
                 era = false;
             }

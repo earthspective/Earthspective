@@ -100,7 +100,7 @@ public class EventPin : MonoBehaviour
     //Checks it's tag against the control panel to see if it should be filtered by tag. 
     public void SetFilter()
     {
-       
+        Debug.Log("SetFilter");
 
             //If the pin has no tags, it should never be filtered by tags.
         if (tags.Count > 0)

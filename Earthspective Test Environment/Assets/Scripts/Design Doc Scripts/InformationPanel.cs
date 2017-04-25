@@ -4,33 +4,35 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InformationPanel : MonoBehaviour {
+public class InformationPanel : MonoBehaviour
+{
 
     public EventPin eventPin;
-    private Date date;
-    public List<string> tags;
-
-
-
+    
     public Text title;
     public Text content;
     public Image icon;
     public Text textDate;
     public Button link;
     public Animator anim;
+
+    private Date date;
+    private List<string> tags;
     private bool open = false;
     private float timer = 0f;
 
 
-    public void OpenLink() {
+    public void OpenLink()
+    {
         if (eventPin != null)
         {
             Application.OpenURL(eventPin.link);
         }
     }
-    
-    public void DisplayPin(EventPin pin) {
-        
+
+    public void DisplayPin(EventPin pin)
+    {
+
         if (open == false)
         {
             anim.SetTrigger("Open");
