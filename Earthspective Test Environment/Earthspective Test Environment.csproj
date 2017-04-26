@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\Pin.cs" />
     <Compile Include="Assets\Scripts\PinCollection.cs" />
     <Compile Include="Assets\Scripts\PinGenerator.cs" />
+    <Compile Include="Assets\Scripts\PinManager.cs" />
     <Compile Include="Assets\Scripts\SpinFree.cs" />
     <Compile Include="Assets\Scripts\TimelineCounter.cs" />
     <Compile Include="Assets\Scripts\look.cs" />

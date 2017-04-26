@@ -11,7 +11,7 @@ public class EventPin : MonoBehaviour
     private Vector2 coordinates;
 
     //Date of the event. 
-    private Date date;
+    public Date date;
 
     //The main preview image associated with this pin. 
     private Sprite icon;
@@ -84,7 +84,6 @@ public class EventPin : MonoBehaviour
     //Handle fading the objects in and out or checking tag filters. 
     public void CheckFilter()
     {
-        
 
         //If the pin isn't filtered set it's visability based on it's distance from the current date. 
         if (filtered == false)

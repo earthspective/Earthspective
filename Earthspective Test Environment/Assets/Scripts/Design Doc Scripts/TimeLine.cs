@@ -10,6 +10,7 @@ public class TimeLine : MonoBehaviour
     public Date currentDate;
     public Slider timeLine;
     public InputField inField;
+    public ControlPanel cPanel;
 
 
     public void Awake()
@@ -25,12 +26,14 @@ public class TimeLine : MonoBehaviour
     {
         currentDate.SetDate(1, 1, currentDate.GetYear() + step);
         UpdateInField();
+        cPanel.FilterPins();
     }
 
     //Returns the distance in years between checkDate and the currentDate. 
     public float CompareDate(Date checkDate)
     {
         return Mathf.Abs(checkDate.GetYear() - currentDate.GetYear());
+        cPanel.FilterPins();
     }
 
     //Updates the date when the timeline slider changes
@@ -38,12 +41,14 @@ public class TimeLine : MonoBehaviour
     {
         currentDate.SetDate(currentDate.GetDay(), currentDate.GetMonth(), (int)timeLine.value);
         UpdateInField();
+        cPanel.FilterPins();
     }
 
     //Updates the timeline when the date was changed by the input field
     public void UpdateTimeLine()
     {
         timeLine.value = Convert.ToInt32(inField.text);
+        cPanel.FilterPins();
     }
 
     //Updates the value of the InputField. 

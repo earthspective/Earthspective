@@ -10,7 +10,6 @@ public class Date : MonoBehaviour {
     public int year;
     public bool era;
 
-
     //Update the class variables
     public bool SetDate(int setDay, int setMonth, int setYear)
     {
