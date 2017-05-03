@@ -15,7 +15,7 @@ public class PinGenerator
     public void Save(string path)
     {
         var serializer = new XmlSerializer(typeof(PinGenerator));
-        using (var stream = new FileStream(path, FileMode.Create))
+        using (var stream = new FileStream(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", FileMode.Create))
         {
             serializer.Serialize(stream, this);
         }
@@ -23,10 +23,10 @@ public class PinGenerator
 
     public static PinGenerator Load(string path)
     {
-        WWW www = new WWW("http://capstone.adamcrider.com/pins/");
+        WWW www = new WWW("http://capstone.adamcrider.com/" + path);
         while (!www.isDone)
         {
-            //Debug.Log("downloaded " + (www.progress.ToString()));
+            Debug.Log("downloaded " + (www.progress.ToString()));
         }
         if (www.error != null)
         {
@@ -35,11 +35,11 @@ public class PinGenerator
         else
         {
             Debug.Log("Downloaded pins, overwriting local version.");
-            File.WriteAllBytes(path, www.bytes);
+            File.WriteAllBytes(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", www.bytes);
         }
 
         var serializer = new XmlSerializer(typeof(PinGenerator));
-        using (var stream = new FileStream(path, FileMode.Open))
+        using (var stream = new FileStream(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", FileMode.Open))
         {
             return serializer.Deserialize(stream) as PinGenerator;
         }

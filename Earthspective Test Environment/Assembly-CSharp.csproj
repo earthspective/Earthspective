@@ -39,20 +39,25 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\KyleScripts\Pin.cs" />
-     <Compile Include="Assets\KyleScripts\PinCollection.cs" />
-     <Compile Include="Assets\KyleScripts\PinGenerator.cs" />
-     <Compile Include="Assets\KyleScripts\PinManager.cs" />
+     <Compile Include="Assets\DuplicateGameObject.cs" />
+     <Compile Include="Assets\RetrievePackage.cs" />
+     <Compile Include="Assets\Scripts\Design Doc Scripts\ControlPanel.cs" />
+     <Compile Include="Assets\Scripts\Design Doc Scripts\Date.cs" />
+     <Compile Include="Assets\Scripts\Design Doc Scripts\EventPin.cs" />
+     <Compile Include="Assets\Scripts\Design Doc Scripts\InformationPanel.cs" />
+     <Compile Include="Assets\Scripts\Design Doc Scripts\TimeLine.cs" />
      <Compile Include="Assets\Scripts\DragSpin.cs" />
-     <Compile Include="Assets\Scripts\EventPin.cs" />
-     <Compile Include="Assets\Scripts\InfoPanelManager.cs" />
+     <Compile Include="Assets\Scripts\Pin.cs" />
+     <Compile Include="Assets\Scripts\PinCollection.cs" />
+     <Compile Include="Assets\Scripts\PinGenerator.cs" />
+     <Compile Include="Assets\Scripts\PinManager.cs" />
      <Compile Include="Assets\Scripts\SpinFree.cs" />
      <Compile Include="Assets\Scripts\TimelineCounter.cs" />
      <Compile Include="Assets\Scripts\look.cs" />
@@ -60,25 +65,22 @@
      <None Include="Assets\XML\pins.xml" />
      <None Include="Assets\Scripts\GUI3D Text Shader.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.PlaymodeTestsRunner">
- <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
- <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.VR">
- <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
- </Reference>
- <Reference Include="Mono.Cecil">
- <HintPath>C:/Program Files/Unity5.5.1/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
