@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 public class ControlPanel : MonoBehaviour
 {
@@ -28,7 +31,7 @@ public class ControlPanel : MonoBehaviour
 
 
 
-    public GameObject eventPin;
+    public List<GameObject> eventPinPrefabs;
 
 
     public InputField title;
@@ -47,6 +50,15 @@ public class ControlPanel : MonoBehaviour
 
     private int inc = 0;
 
+    
+
+    [SerializeField]
+    InputField input;
+    [SerializeField]
+    InputField output;
+    PinGenerator pincollection;
+
+
     // Use this for initialization
     void Start()
     {
@@ -57,6 +69,17 @@ public class ControlPanel : MonoBehaviour
         tags.Add("Custom Pins", true);
         MonthDropDownChange();
         year.text = "0";
+        
+
+        var submitPack = new InputField.SubmitEvent();
+        submitPack.AddListener(SubmitPackName);
+        input.onEndEdit = submitPack;
+        var sendPack = new InputField.SubmitEvent();
+        sendPack.AddListener(SendPackage);
+        output.onEndEdit = sendPack;
+
+        //Load("pin");
+        
     }
 
     //Filter every pin based on tags. 
@@ -92,9 +115,6 @@ public class ControlPanel : MonoBehaviour
         Destroy(tog.gameObject);
     }
 
-    //Create a custom event and add it to the scene. 
-    public void CreateEvenet() { }
-
     //Update the value of a tag and filter pins.
     public void ToggleTag(Toggle tog)
     {
@@ -111,18 +131,36 @@ public class ControlPanel : MonoBehaviour
     //Creates a custom pin.
     public void CreateCustomPin()
     {
-        var pin = Instantiate(eventPin);
-        Date date = pin.gameObject.AddComponent<Date>();
+        bool createSuccessfully = true;
+
+        GameObject pin;
+       
+        if(customPinTag[0].isOn == true)
+        {
+            pin = Instantiate(eventPinPrefabs[0], planet.transform);
+        }else if (customPinTag[1].isOn == true)
+        {
+            pin = Instantiate(eventPinPrefabs[1], planet.transform);
+        }else if (customPinTag[2].isOn == true)
+        {
+            pin = Instantiate(eventPinPrefabs[2], planet.transform);
+        }else if (customPinTag[3].isOn == true)
+        {
+            pin = Instantiate(eventPinPrefabs[3], planet.transform);
+        }else {
+            pin = Instantiate(eventPinPrefabs[4], planet.transform);
+        }
+        
+        Date date = pin.GetComponent<Date>();
         pin.GetComponent<EventPin>().SetDate(date);
+
         if (era.value == 0)
         {
-            Debug.Log("0");
-            date.SetDate(Convert.ToInt32(year.text), month.value + 1, day.value + 1);
+            createSuccessfully = date.SetDate(day.value + 1, month.value + 1, Convert.ToInt32(year.text));
         }
         if(era.value == 1)
         {
-            Debug.Log("1");
-            date.SetDate(0 - Convert.ToInt32(year.text), month.value + 1, day.value + 1);
+            createSuccessfully = date.SetDate(day.value + 1, month.value + 1, 0 - Convert.ToInt32(year.text));
         }
         pin.GetComponent<EventPin>().SetTitle(title.text);
         pin.GetComponent<EventPin>().SetDescription(description.text);
@@ -134,12 +172,13 @@ public class ControlPanel : MonoBehaviour
             }
         }
         pin.GetComponent<EventPin>().sourceTags.Add("Custom Pins");
-        if (lat.text != "" && lon.text != "null")
+        if (lat.text != "" && lon.text != "")
         {
             pin.GetComponent<EventPin>().SetCoordinates(float.Parse(lat.text), float.Parse(lon.text));
             PlacePin(pin.GetComponent<EventPin>());
         }else
         {
+            createSuccessfully = false;
             //start manual placment
         }
 
@@ -149,8 +188,32 @@ public class ControlPanel : MonoBehaviour
 
         pin.GetComponent<EventPin>().infoPanel = infoPanel;
 
-        eventPins.Add(pin.GetComponent<EventPin>());
-        FilterPins();
+
+        if(title.text == "") { createSuccessfully = false; }
+
+        
+        if(createSuccessfully == true)
+        {
+            title.text = "";
+            lat.text = "";
+            lon.text = "";
+            year.text = "1";
+            month.value = 0;
+            day.value = 0;
+            foreach(Toggle tog in customPinTag)
+            {
+                tog.isOn = false;
+            }
+            eventPins.Add(pin.GetComponent<EventPin>());
+            FilterPins();
+        }
+        else
+        {
+            Destroy(pin);
+        }
+
+
+
     }
 
     public void MonthDropDownChange()
@@ -209,12 +272,17 @@ public class ControlPanel : MonoBehaviour
         {
             day.options.Add(new Dropdown.OptionData() { text = i.ToString() });
         }
+
+        day.value = 0;
+        day.RefreshShownValue();
+
     }
 
 
     void PlacePin(EventPin pin)
     {
-        axis.transform.rotation = Quaternion.Euler(axis.transform.rotation.eulerAngles.x, -pin.GetCoordinates().x, pin.GetCoordinates().y);
+       
+        axis.transform.localRotation = Quaternion.Euler(0, -pin.GetCoordinates().x, pin.GetCoordinates().y);
 
         RaycastHit hit;
 
@@ -224,8 +292,133 @@ public class ControlPanel : MonoBehaviour
             pin.gameObject.transform.rotation = Quaternion.LookRotation(hit.normal);
             pin.gameObject.transform.parent = planet.transform;
         }
-
-
     }
 
+
+
+
+
+
+
+
+
+    private void SubmitPackName(string arg0)
+    {
+        Debug.Log(arg0);
+        if (arg0 == "pins")
+        {
+            pincollection = PinGenerator.Load(arg0);
+        }
+        for (int i = 0; i < pincollection.Pins.Length; i++)
+        {
+            Debug.Log(pincollection.Pins[i].desc);
+        }
+    }
+
+    private void SendPackage(string path)
+    {
+        var xmlString = System.IO.File.ReadAllText(Path.Combine(Application.dataPath, "./XML/") + path + ".xml");
+        var url = "http://capstone.adamcrider.com/" + path;
+        var form = new WWWForm();
+        form.AddField("testData", xmlString);
+        WWW www = new WWW(url, form);
+
+        StartCoroutine(WaitForRequest(www));
+    }
+
+    IEnumerator WaitForRequest(WWW www)
+    {
+        yield return www;
+
+        if (www.error == null)
+        {
+            Debug.Log("WWW sent!: " + www.text);
+        }
+        else Debug.Log("Error: " + www.error);
+    }
+
+
+
+
+
+
+
+
+    [XmlArray("Pins"), XmlArrayItem("Pin")]
+    public Pin[] Pins;
+
+    public void Save(string path)
+    {
+        var serializer = new XmlSerializer(typeof(PinGenerator));
+        using (var stream = new FileStream(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", FileMode.Create))
+        {
+            serializer.Serialize(stream, this);
+        }
+    }
+
+    public static PinGenerator Load(string path)
+    {
+        WWW www = new WWW("http://capstone.adamcrider.com/" + path);
+        while (!www.isDone)
+        {
+            Debug.Log("downloaded " + (www.progress.ToString()));
+        }
+        if (www.error != null)
+        {
+            Debug.Log("Failed to download, using cached pins");
+        }
+        else
+        {
+            Debug.Log("Downloaded pins, overwriting local version.");
+            File.WriteAllBytes(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", www.bytes);
+        }
+
+        var serializer = new XmlSerializer(typeof(PinGenerator));
+        using (var stream = new FileStream(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as PinGenerator;
+        }
+    }
+}
+
+
+[XmlRoot("PinCollection")]
+public class PinGenerator
+{
+
+    [XmlArray("Pins"), XmlArrayItem("Pin")]
+    public Pin[] Pins;
+
+    public void Save(string path)
+    {
+        var serializer = new XmlSerializer(typeof(PinGenerator));
+        using (var stream = new FileStream(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", FileMode.Create))
+        {
+            serializer.Serialize(stream, this);
+        }
+    }
+
+    public static PinGenerator Load(string path)
+    {
+        WWW www = new WWW("http://capstone.adamcrider.com/" + path);
+        while (!www.isDone)
+        {
+            Debug.Log("downloaded " + (www.progress.ToString()));
+        }
+        if (www.error != null)
+        {
+            Debug.Log("Failed to download, using cached pins");
+        }
+        else
+        {
+            Debug.Log("Downloaded pins, overwriting local version.");
+            File.WriteAllBytes(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", www.bytes);
+        }
+
+        var serializer = new XmlSerializer(typeof(PinGenerator));
+        using (var stream = new FileStream(Path.Combine(Application.dataPath, "./XML/") + path + ".xml", FileMode.Open))
+        {
+            return serializer.Deserialize(stream) as PinGenerator;
+        }
+    }
 }

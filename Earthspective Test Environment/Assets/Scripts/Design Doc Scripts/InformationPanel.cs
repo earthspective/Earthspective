@@ -8,7 +8,7 @@ public class InformationPanel : MonoBehaviour
 {
 
     public EventPin eventPin;
-    
+
     public Text title;
     public Text content;
     public Image icon;
@@ -20,6 +20,10 @@ public class InformationPanel : MonoBehaviour
     private List<string> tags;
     private bool open = false;
     private float timer = 0f;
+
+    private string imgPath;
+
+    public GameObject panelContent;
 
 
     public void OpenLink()
@@ -42,7 +46,7 @@ public class InformationPanel : MonoBehaviour
 
         if (open == true && (pin == null || pin == eventPin))
         {
-            anim.SetTrigger("Close");
+            anim.ResetTrigger("Open");
             open = false;
             timer = 0f;
             return;
@@ -56,6 +60,13 @@ public class InformationPanel : MonoBehaviour
             timer = 0f;
             return;
         }
+
+
+        content.GetComponent<ContentSizeFitter>().enabled = false;
+        content.GetComponent<ContentSizeFitter>().enabled = true;
+
+        panelContent.GetComponent<ContentSizeFitter>().enabled = false;
+        panelContent.GetComponent<ContentSizeFitter>().enabled = true;
 
     }
 
@@ -77,11 +88,12 @@ public class InformationPanel : MonoBehaviour
 
     private void Transition()
     {
-        Debug.Log("Transition");
-
+        anim.ResetTrigger("Cycle");
         title.text = eventPin.GetTitle();
         content.text = eventPin.GetDescription();
-        icon.sprite = eventPin.GetIcon();
+        loadImage();
+        //icon.sprite = eventPin.GetIcon();
+        imgPath = eventPin.GetIcon();
         date = eventPin.GetDate();
 
         string boundary = "";
@@ -93,10 +105,21 @@ public class InformationPanel : MonoBehaviour
         {
             boundary = " BC";
         }
+        Debug.Log(date.GetDay());
 
-        textDate.text = "" + Math.Abs(date.GetYear()) + boundary;
+        textDate.text = date.GetDate();
 
         link.GetComponentInChildren<Text>().text = eventPin.link;
+
+    }
+
+    IEnumerator loadImage()
+    {
+        //var url = "http://capstone.adamcrider.com/" + imgPath;
+        var url = "http://solarviews.com/raw/earth/bluemarblewest.jpg";
+        WWW www = new WWW(url);
+        yield return www;
+        icon.sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
     }
 
 }

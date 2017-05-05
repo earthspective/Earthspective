@@ -14,7 +14,7 @@ public class EventPin : MonoBehaviour
     public Date date;
 
     //The main preview image associated with this pin. 
-    private Sprite icon;
+    private string icon;
 
     //The Title of the Event, ie The Battle of Thermopylae
     private string title;
@@ -77,13 +77,15 @@ public class EventPin : MonoBehaviour
     //Checks for mouse clicks to 
     private void OnMouseDown()
     {
-        Debug.Log("PinDown");
+        Debug.Log("Mouse Press");
+        controlPanel.GetComponent<Animator>().ResetTrigger("Open");
         infoPanel.DisplayPin(this);
     }
     
     //Handle fading the objects in and out or checking tag filters. 
     public void CheckFilter()
     {
+        label.text = title;
 
         //If the pin isn't filtered set it's visability based on it's distance from the current date. 
         if (filtered == false)
@@ -99,9 +101,7 @@ public class EventPin : MonoBehaviour
     //Checks it's tag against the control panel to see if it should be filtered by tag. 
     public void SetFilter()
     {
-        Debug.Log("SetFilter");
-
-            //If the pin has no tags, it should never be filtered by tags.
+        //If the pin has no tags, it should never be filtered by tags.
         if (tags.Count > 0)
         {
             //If it does have tags, check each tag against it's status in
@@ -119,22 +119,22 @@ public class EventPin : MonoBehaviour
                 }
             }
 
+            foreach (string tag in sourceTags)
+            {
+                if (controlPanel.tags[tag] == false)
+                {
+                    filtered = true;
+                    break;
+                }
+            }
+
             //If filtered finishes as true, set it to transparent. 
             if (filtered == true)
             {
-                pinRender.material.color = Color.clear;
-                titleRender.material.color = Color.clear;
+                pinRender.material.color = new Color(pinRender.material.color.r, pinRender.material.color.g, pinRender.material.color.b, 0);
+                titleRender.material.color = new Color(titleRender.material.color.r, titleRender.material.color.g, titleRender.material.color.b, 0);
             }
-        }
-
-        foreach (string tag in sourceTags)
-        {
-            if (controlPanel.tags[tag] == false)
-            {
-                filtered = true;
-                break;
-            }
-        }
+        }        
     }
 
     //Check to see if the tag is present.
@@ -165,9 +165,9 @@ public class EventPin : MonoBehaviour
 
     public Date GetDate(){return date;}
 
-    public void SetIcon(Sprite sprite) { icon = sprite;}
+    public void SetIcon(string sprite) { icon = sprite;}
 
-    public Sprite GetIcon() {return icon;}
+    public string GetIcon() {return icon;}
 
     public void SetTitle(string newTitle) { title = newTitle;}
 

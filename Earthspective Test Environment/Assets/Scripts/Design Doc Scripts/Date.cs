@@ -16,7 +16,7 @@ public class Date : MonoBehaviour {
         if (setDay > 0)
         {
             #region switchMonth
-            switch (month)
+            switch (setMonth)
             {
                 case 1:
                     if (setDay <= 31)
@@ -133,7 +133,6 @@ public class Date : MonoBehaviour {
                 {
                     setYear = 1;
                 }
-
                 year = setYear;
             }
             else { return false; }
@@ -147,7 +146,6 @@ public class Date : MonoBehaviour {
             {
                 era = false;
             }
-
             return true;
         }
         else { return false; }
@@ -226,7 +224,7 @@ public class Date : MonoBehaviour {
 
     public int GetMonth() { return month; }
 
-    public int GetYear() { return year; }
+    public int GetYear() { return year; Debug.Log(year); }
 
     public bool GetEra() { return era; }
 

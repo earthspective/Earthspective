@@ -75,24 +75,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DuplicateGameObject.cs" />
     <Compile Include="Assets\Scripts\Design Doc Scripts\ControlPanel.cs" />
     <Compile Include="Assets\Scripts\Design Doc Scripts\Date.cs" />
     <Compile Include="Assets\Scripts\Design Doc Scripts\EventPin.cs" />
     <Compile Include="Assets\Scripts\Design Doc Scripts\InformationPanel.cs" />
     <Compile Include="Assets\Scripts\Design Doc Scripts\TimeLine.cs" />
-    <Compile Include="Assets\Scripts\DragSpin.cs" />
-    <Compile Include="Assets\Scripts\Pin.cs" />
+    <Compile Include="Assets\Scripts\Helper Scripts\CloseApplication.cs" />
+    <Compile Include="Assets\Scripts\Helper Scripts\DuplicateGameObject.cs" />
+    <Compile Include="Assets\Scripts\Helper Scripts\RetrievePackage.cs" />
     <Compile Include="Assets\Scripts\PinCollection.cs" />
     <Compile Include="Assets\Scripts\PinGenerator.cs" />
     <Compile Include="Assets\Scripts\PinManager.cs" />
-    <Compile Include="Assets\Scripts\SpinFree.cs" />
-    <Compile Include="Assets\Scripts\TimelineCounter.cs" />
-    <Compile Include="Assets\Scripts\look.cs" />
-    <Compile Include="Assets\Scripts\spinner.cs" />
+    <Compile Include="Assets\Scripts\Unity Scripts\DragSpin.cs" />
+    <Compile Include="Assets\Scripts\Unity Scripts\SpinFree.cs" />
+    <Compile Include="Assets\Scripts\Unity Scripts\look.cs" />
+    <Compile Include="Assets\Scripts\Unity Scripts\spinner.cs" />
+    <Compile Include="Assets\XML\Pin.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\GUI3D Text Shader.shader" />
+    <None Include="Assets\Art\Shaders\GUI3D Text Shader.shader" />
     <None Include="Assets\XML\pins.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

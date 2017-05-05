@@ -11,6 +11,7 @@ public class TimeLine : MonoBehaviour
     public Slider timeLine;
     public InputField inField;
     public ControlPanel cPanel;
+    public Text era;
 
 
     public void Awake()
@@ -42,6 +43,15 @@ public class TimeLine : MonoBehaviour
         currentDate.SetDate(currentDate.GetDay(), currentDate.GetMonth(), (int)timeLine.value);
         UpdateInField();
         cPanel.FilterPins();
+        cPanel.year.text = timeLine.value.ToString();
+        if(timeLine.value < 0)
+        {
+            cPanel.era.value = 1;
+        }else
+        {
+            cPanel.era.value = 0;
+        }
+        cPanel.era.RefreshShownValue();
     }
 
     //Updates the timeline when the date was changed by the input field
@@ -63,8 +73,8 @@ public class TimeLine : MonoBehaviour
         {
             boundary = " BC";
         }
-
-        inField.text = "" + Math.Abs(currentDate.GetYear()) + boundary;
+        era.text = boundary;
+        inField.text = "" + Math.Abs(currentDate.GetYear());
     }
 
     //Returns the current date. 
