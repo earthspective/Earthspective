@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//******* Tanner Marshall
+//******* Capstone Spring 2017
+
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -6,11 +9,19 @@ using UnityEngine.UI;
 
 public class TimeLine : MonoBehaviour
 {
-
+    //The current date from the timeline.
     public Date currentDate;
+
+    //The slider UI comonent.
     public Slider timeLine;
+
+    //The Input field from the timeline.
     public InputField inField;
+
+    //A reference to the control panel.
     public ControlPanel cPanel;
+
+    //Determines the era
     public Text era;
 
 
@@ -34,7 +45,6 @@ public class TimeLine : MonoBehaviour
     public float CompareDate(Date checkDate)
     {
         return Mathf.Abs(checkDate.GetYear() - currentDate.GetYear());
-        cPanel.FilterPins();
     }
 
     //Updates the date when the timeline slider changes

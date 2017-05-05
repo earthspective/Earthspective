@@ -87,14 +87,10 @@
     <Compile Include="Assets\Scripts\PinGenerator.cs" />
     <Compile Include="Assets\Scripts\PinManager.cs" />
     <Compile Include="Assets\Scripts\Unity Scripts\DragSpin.cs" />
-    <Compile Include="Assets\Scripts\Unity Scripts\SpinFree.cs" />
     <Compile Include="Assets\Scripts\Unity Scripts\look.cs" />
-    <Compile Include="Assets\Scripts\Unity Scripts\spinner.cs" />
-    <Compile Include="Assets\XML\Pin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Art\Shaders\GUI3D Text Shader.shader" />
-    <None Include="Assets\XML\pins.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//******* Tanner Marshall
+//******* Capstone Spring 2017
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,6 +46,7 @@ public class EventPin : MonoBehaviour
     //Variable controlling whether the pin should check aditional filter properties. 
     private bool filtered = false;
 
+    public string id;
 
 
     //*********Unity Variables
@@ -118,11 +122,14 @@ public class EventPin : MonoBehaviour
                     filtered = true;
                 }
             }
-
+            //Filter against the pin source
             foreach (string tag in sourceTags)
             {
+                Debug.Log(tag);
+                Debug.Log(controlPanel.tags[tag]);
                 if (controlPanel.tags[tag] == false)
                 {
+                    Debug.Log(filtered);
                     filtered = true;
                     break;
                 }

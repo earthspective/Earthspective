@@ -15,6 +15,7 @@ public class Date : MonoBehaviour {
     {
         if (setDay > 0)
         {
+            //Check the month to see how many days should be allowed. 
             #region switchMonth
             switch (setMonth)
             {
@@ -122,6 +123,7 @@ public class Date : MonoBehaviour {
 
             #endregion
 
+            //Determine if the year is within bounds and what era it is in. 
             if(setYear >= -10000 && setYear < 2100)
             {
                 if (setYear == 0 && era == true)
@@ -224,7 +226,7 @@ public class Date : MonoBehaviour {
 
     public int GetMonth() { return month; }
 
-    public int GetYear() { return year; Debug.Log(year); }
+    public int GetYear() { return year;}
 
     public bool GetEra() { return era; }
 

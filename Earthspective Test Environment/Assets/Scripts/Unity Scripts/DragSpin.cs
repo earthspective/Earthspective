@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//******* Tanner Marshall
+//******* Capstone Spring 2017
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,7 +63,7 @@ public class DragSpin : MonoBehaviour {
             if (Camera.main.fieldOfView > 60) { Camera.main.fieldOfView = 60; }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) == true && reset == false)
+        if (Input.GetKeyDown(KeyCode.Alpha0) == true && reset == false)
         {
             reset = true;
         }
